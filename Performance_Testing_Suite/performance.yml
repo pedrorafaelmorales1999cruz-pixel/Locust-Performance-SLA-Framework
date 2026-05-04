@@ -1,0 +1,24 @@
+name: 🚀 CI/CD Performance Regression
+on: [push]
+
+jobs:
+  performance-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: 🏃 Execute Performance Test (Headless)
+        run: |
+          # Corremos con una carga moderada para CI para validar estabilidad sin saturar runners
+          locust -f locustfile.py --headless -u 20 -r 4 --run-time 45s --html reports/ci_report.html --host https://jsonplaceholder.typicode.com
+      - name: Archive Performance Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: locust-html-report
+          path: reports/ci_report.html

@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Reportes y Logs (Contienen marcas de tiempo y rutas locales)
+reports/*.html
+reports/*.json
+.log
+logs/
+
+# Datos sensibles y entorno
+users.csv
+.env
+.venv/
+venv/
+
+# Editores de código
+.vscode/
+.idea/
